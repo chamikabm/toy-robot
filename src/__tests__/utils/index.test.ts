@@ -11,7 +11,8 @@ import {
     isValidaFacingDirection,
 } from '../../utils';
 import {
-    ORIENTATION, ROTATE_DEG,
+    ROTATE_DEG,
+    ORIENTATION,
     VALID_COMMAND,
     VALID_DIRECTION,
 } from '../../constants';
