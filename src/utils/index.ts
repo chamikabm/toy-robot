@@ -1,4 +1,4 @@
-import { VALID_COMMAND, VALID_VALID_COMMANDS } from "../constants";
+import { VALID_COMMAND, VALID_FACING_DIRECTIONS, VALID_VALID_COMMANDS } from "../constants";
 
 export const getCommandValues = (command: string) => {
     try {
@@ -24,6 +24,10 @@ export const isExpectedCommand = (expected: string, received: string) => {
 
 export const isValidCoordinate = (coordinate: number) => {
     return Number.isInteger(coordinate) && Math.sign(coordinate) >= 0;
+};
+
+export const isValidaFacingDirection = (facingDirection: string) => {
+    return facingDirection && VALID_FACING_DIRECTIONS.includes(facingDirection);
 };
 
 export type TProcessResult = {
@@ -86,6 +90,15 @@ export const processCommandUtil = ({
             if (!isValidCoordinate(x) || !isValidCoordinate(y)) {
                 processedResult.error = {
                     message: 'Invalid coordinates.',
+                };
+
+                return processedResult;
+            }
+
+            const facingDirection = commandValues[3];
+            if (!isValidaFacingDirection(facingDirection)) {
+                processedResult.error = {
+                    message: `Invalid facing direction. Only allowed : ${VALID_FACING_DIRECTIONS}`,
                 };
 
                 return processedResult;

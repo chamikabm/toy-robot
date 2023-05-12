@@ -1,11 +1,11 @@
 import {
     arrayHasElements,
-    getCommandValues, isExpectedCommand, isValidCoordinate,
+    getCommandValues, isExpectedCommand, isValidaFacingDirection, isValidCoordinate,
     processCommandUtil
 } from "../../utils";
 import {
-    VALID_COMMAND,
-} from '../../constants';
+    VALID_COMMAND, VALID_DIRECTION
+} from "../../constants";
 
 describe('Testing: app/utils', () => {
 
@@ -123,6 +123,39 @@ describe('Testing: app/utils', () => {
         test('it should return true if the coordinate is 5', () => {
             const coordinate = 0;
             const result = isValidCoordinate(coordinate);
+            expect(result).toBe(true);
+        });
+    });
+
+
+    describe('isValidaFacingDirection', () => {
+        test('it should return true if the facing direction is UNKNOWN', () => {
+            const facingDirection = 'UNKNOWN';
+            const result = isValidaFacingDirection(facingDirection);
+            expect(result).toBe(false);
+        });
+
+        test('it should return true if the facing direction is NORTH', () => {
+            const facingDirection = VALID_DIRECTION.NORTH;
+            const result = isValidaFacingDirection(facingDirection);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the facing direction is SOUTH', () => {
+            const facingDirection = VALID_DIRECTION.SOUTH;
+            const result = isValidaFacingDirection(facingDirection);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the facing direction is EAST', () => {
+            const facingDirection = VALID_DIRECTION.EAST;
+            const result = isValidaFacingDirection(facingDirection);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the facing direction is WEST', () => {
+            const facingDirection = VALID_DIRECTION.WEST;
+            const result = isValidaFacingDirection(facingDirection);
             expect(result).toBe(true);
         });
     });
