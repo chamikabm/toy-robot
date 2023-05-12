@@ -1,3 +1,5 @@
+import { VALID_COMMAND, VALID_VALID_COMMANDS } from "../constants";
+
 export const getCommandValues = (command: string) => {
     try {
         return command.split(/[\s,]+/);
@@ -9,6 +11,15 @@ export const getCommandValues = (command: string) => {
 
 export const arrayHasElements = (arr: string[], expectedElementCount = 1 ) => {
     return Array.isArray(arr) && (arr.length >= expectedElementCount);
+};
+
+export const isExpectedCommand = (expected: string, received: string) => {
+    try {
+        const regex = new RegExp(`^${expected}\\s*$`, 'i');
+        return regex.test(received);
+    } catch (e) {
+        return false;
+    }
 };
 
 export type TProcessResult = {
@@ -42,6 +53,26 @@ export const processCommandUtil = ({
     if (!arrayHasElements(commandValues)) {
         processedResult.error.message = 'Invalid command';
         return processedResult;
+    }
+
+    const command = commandValues[0];
+    switch (command) {
+        case VALID_COMMAND.PLACE:
+        {
+            if (!isExpectedCommand(VALID_COMMAND.PLACE, command)) {
+                processedResult.error = {
+                    message: 'Robot must be place on the table to start.',
+                };
+
+                return processedResult;
+            }
+        }
+        break;
+        default:
+            processedResult.error = {
+                message: `Invalid facing direction. Only allowed : ${VALID_VALID_COMMANDS}`,
+            };
+            break;
     }
 
     return processedResult;

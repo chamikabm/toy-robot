@@ -1,6 +1,6 @@
 import {
     arrayHasElements,
-    getCommandValues,
+    getCommandValues, isExpectedCommand,
     processCommandUtil
 } from "../../utils";
 import {
@@ -59,6 +59,44 @@ describe('Testing: app/utils', () => {
         test('it should return true if if array has 4 elements', () => {
             const arr = [ '1', '2', '3', '4' ];
             const result = arrayHasElements(arr, 4);
+            expect(result).toBe(true);
+        });
+    });
+
+    describe('isExpectedCommand', () => {
+        test('it should return false if the command is INVALID and expected PLACE', () => {
+            const command = 'INVALID';
+            const result = isExpectedCommand(VALID_COMMAND.PLACE, command);
+            expect(result).toBe(false);
+        });
+
+        test('it should return true if the command is PLACE and expected PLACE', () => {
+            const command = VALID_COMMAND.PLACE;
+            const result = isExpectedCommand(command, command);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the command is MOVE and expected MOVE', () => {
+            const command = VALID_COMMAND.MOVE;
+            const result = isExpectedCommand(command, command);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the command is LEFT and expected LEFT', () => {
+            const command = VALID_COMMAND.LEFT;
+            const result = isExpectedCommand(command, command);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the command is RIGHT and expected RIGHT', () => {
+            const command = VALID_COMMAND.RIGHT;
+            const result = isExpectedCommand(command, command);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the command is REPORT and expected REPORT', () => {
+            const command = VALID_COMMAND.REPORT;
+            const result = isExpectedCommand(command, command);
             expect(result).toBe(true);
         });
     });
