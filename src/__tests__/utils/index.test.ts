@@ -1,6 +1,8 @@
 import {
+    arrayHasElements,
     getCommandValues,
-} from '../../utils';
+    processCommandUtil
+} from "../../utils";
 import {
     VALID_COMMAND,
 } from '../../constants';
@@ -32,6 +34,46 @@ describe('Testing: app/utils', () => {
         test('it should return [ REPORT ] if the command is REPORT', () => {
             const result = getCommandValues(VALID_COMMAND.REPORT);
             expect(result).toEqual([ VALID_COMMAND.REPORT ]);
+        });
+    });
+
+    describe('arrayHasElements', () => {
+        test('it should return false if if array is empty', () => {
+            const arr: string[] = [];
+            const result = arrayHasElements(arr, 1);
+            expect(result).toBe(false);
+        });
+
+        test('it should return false if if array has more elements than expected count', () => {
+            const arr = [ '1', '2', '3', '4', '5' ];
+            const result = arrayHasElements(arr, 7);
+            expect(result).toBe(false);
+        });
+
+        test('it should return true if if array has one element', () => {
+            const arr = [ '1' ];
+            const result = arrayHasElements(arr, 1);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if if array has 4 elements', () => {
+            const arr = [ '1', '2', '3', '4' ];
+            const result = arrayHasElements(arr, 4);
+            expect(result).toBe(true);
+        });
+    });
+
+    describe('processCommandUtil', () => {
+        test('it should not process invalid UNKNOWN command.', () => {
+            const processCommandInput  = {
+                commandExecuted: 'UNKNOWN',
+            };
+            const processCommandResult  = {
+                'error': {'message': 'Invalid command'},
+                'success': false,
+            };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
         });
     });
 });
