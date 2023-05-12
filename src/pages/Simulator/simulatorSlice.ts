@@ -70,6 +70,7 @@ export const {
 export const selectError = (state: RootState) => state.simulator.error;
 export const selectCoordinate = (state: RootState) => state.simulator.coordinate;
 export const selectFacing = (state: RootState) => state.simulator.facing;
+export const selectCommandOutput = (state: RootState) => state.simulator.commandOutput;
 
 // Reducer
 export default simulatorSlice.reducer;
