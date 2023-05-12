@@ -9,6 +9,7 @@ import {
     isValidaFacingDirection,
 } from '../../utils';
 import {
+    ORIENTATION,
     VALID_COMMAND,
     VALID_DIRECTION,
 } from '../../constants';
@@ -248,53 +249,45 @@ describe('Testing: app/utils', () => {
     });
 
     describe('processCommandUtil', () => {
-        // test('it should not process invalid UNKNOWN command.', () => {
-        //     const processCommandInput  = {
-        //         commandExecuted: 'UNKNOWN',
-        //         isPlaced: false,
-        //     };
-        //     const processCommandResult  = {
-        //         'error': {'message': 'Invalid command'},
-        //         'success': false,
-        //     };
-        //     const result = processCommandUtil(processCommandInput);
-        //     expect(result).toEqual(processCommandResult);
-        // });
-        // test('it should not process invalid MOVE command.', () => {
-        //     const processCommandInput  = {
-        //         commandExecuted: 'MOVE',
-        //         isPlaced: false,
-        //     };
-        //     const processCommandResult  = {
-        //         'error': {'message': 'Robot must be place on the table before executing other commands'},
-        //         'success': false,
-        //     };
-        //     const result = processCommandUtil(processCommandInput);
-        //     expect(result).toEqual(processCommandResult);
-        // });
-        // test('it should not process invalid REPORT command.', () => {
-        //     const processCommandInput  = {
-        //         commandExecuted: 'MOVE',
-        //         isPlaced: false,
-        //     };
-        //     const processCommandResult  = {
-        //         'error': {'message': 'Robot must be place on the table before executing other commands'},
-        //         'success': false,
-        //     };
-        //     const result = processCommandUtil(processCommandInput);
-        //     expect(result).toEqual(processCommandResult);
-        // });
-        // test('it should not process invalid PLACE command.', () => {
-        //     const processCommandInput  = {
-        //         commandExecuted: 'PLACE 7,7,NORTH',
-        //         isPlaced: false,
-        //     };
-        //     const processCommandResult  = {
-        //         'error': {'message': 'Robot must be place on the table to start.', },
-        //         'success': false,
-        //     };
-        //     const result = processCommandUtil(processCommandInput);
-        //     expect(result).toEqual(processCommandResult);
-        // });
+        test('it should not process invalid PLACE 0,0,UNKNOWN', () => {
+            const processCommandInput  = {
+                commandExecuted: 'PLACE 0,0,UNKNOWN',
+                currCoordinate: { x: 0, y: 0},
+                currFacing: ORIENTATION.NORTH,
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                'coordinate': {'x': 0, 'y': 0},
+                'error': {'message': 'Invalid facing direction. Only allowed : NORTH,EAST,SOUTH,WEST'},
+                'facing': {'x': 0, 'y': 1},
+                'placed': false,
+                'processedCommand': '',
+                'processedCommandOutput': '',
+                'success': false,
+            };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+
+        test('it should process PLACE 0,0,NORTH', () => {
+            const processCommandInput  = {
+                commandExecuted: 'PLACE 0,0,NORTH',
+                currCoordinate: { x: 0, y: 0},
+                currFacing: ORIENTATION.NORTH,
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                  coordinate: { 'x': 0, 'y': 0 },
+                  error: { 'message': '' },
+                  facing: { 'x': 0, 'y': 1 },
+                  placed: true,
+                  processedCommand: 'PLACE 0,0,NORTH',
+                  processedCommandOutput: '',
+                  success: true,
+              }
+            ;
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
     });
 });

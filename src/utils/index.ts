@@ -4,13 +4,13 @@ import {
     VALID_COMMAND,
     VALID_FACING_DIRECTIONS,
     VALID_VALID_COMMANDS
-} from "../constants";
+} from '../constants';
 import {
     Facing,
     Direction,
     Coordinate,
     CoordinateObject,
-} from "../types";
+} from '../types';
 
 export const getCommandValues = (command: string) => {
     try {
