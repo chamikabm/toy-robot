@@ -4,14 +4,14 @@
 
 ## Available Scripts
 
->Prerequisite: Make sure you have `node` latest installed to your machine, and use the following command to install the package dependencies.
-### `npm install`
+>Prerequisite: Make sure you have `node` and `yarn` latest installed to your machine, and use the following command to install the package dependencies.
+###  `yarn install`
 
+----
+## Start the App
 In the project directory, you can run:
 
 ### `npm start`
-
-----
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -20,12 +20,14 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ---
+## Run tests
 
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
 
 ---
+## Create the build
 
 ### `npm run build`
 
@@ -36,17 +38,18 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 ---
+## Check linting issues
 
 ### `npm run lint`
 
 If you want to check linting issues.
 
 ---
-
+## Fix linting issues
 ### `npm run lint:fix`
 
 If you want to fix minor linting issues.
 
 ---
 
-Copyright (c) [2023] [Chamika Bandara]
+#### Copyright (c) [2023] [Chamika Bandara]
