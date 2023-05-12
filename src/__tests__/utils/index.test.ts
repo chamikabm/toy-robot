@@ -1,6 +1,6 @@
 import {
     arrayHasElements,
-    getCommandValues, isExpectedCommand, isValidaFacingDirection, isValidCoordinate,
+    getCommandValues, isExpectedCommand, isPlacedInsideTheTable, isValidaFacingDirection, isValidCoordinate,
     processCommandUtil
 } from "../../utils";
 import {
@@ -160,6 +160,62 @@ describe('Testing: app/utils', () => {
         });
     });
 
+    describe('isPlacedInsideTheTable', () => {
+        test('it should return true if the middle coordinates within the table.', () => {
+            const coordinates = {
+                x: 3,
+                y: 4,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the far edge coordinates within the table.', () => {
+            const coordinates = {
+                x: 4,
+                y: 4,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the close edge coordinates within the table.', () => {
+            const coordinates = {
+                x: 0,
+                y: 0,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the one x edge coordinate is not within the table.', () => {
+            const coordinates = {
+                x: 6,
+                y: 0,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(false);
+        });
+
+        test('it should return false if the one y edge coordinate is not within the table.', () => {
+            const coordinates = {
+                x: 0,
+                y: 6,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(false);
+        });
+
+        test('it should return false if all edge coordinates are not within the table.', () => {
+            const coordinates = {
+                x: 6,
+                y: 6,
+            };
+            const result = isPlacedInsideTheTable(coordinates);
+            expect(result).toBe(false);
+        });
+    });
+
     describe('processCommandUtil', () => {
         test('it should not process invalid UNKNOWN command.', () => {
             const processCommandInput  = {
@@ -192,6 +248,18 @@ describe('Testing: app/utils', () => {
             };
             const processCommandResult  = {
                 'error': {'message': 'Robot must be place on the table before executing other commands'},
+                'success': false,
+            };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+        test('it should not process invalid PLACE command.', () => {
+            const processCommandInput  = {
+                commandExecuted: 'PLACE 7,7,NORTH',
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                'error': {'message': 'Robot must be place on the table to start.', },
                 'success': false,
             };
             const result = processCommandUtil(processCommandInput);

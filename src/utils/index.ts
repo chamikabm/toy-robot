@@ -1,4 +1,12 @@
-import { VALID_COMMAND, VALID_FACING_DIRECTIONS, VALID_VALID_COMMANDS } from "../constants";
+import {
+    TABLE_DIMENSION,
+    VALID_COMMAND,
+    VALID_FACING_DIRECTIONS,
+    VALID_VALID_COMMANDS,
+} from '../constants';
+import {
+    CoordinateObject,
+} from '../types';
 
 export const getCommandValues = (command: string) => {
     try {
@@ -28,6 +36,10 @@ export const isValidCoordinate = (coordinate: number) => {
 
 export const isValidaFacingDirection = (facingDirection: string) => {
     return facingDirection && VALID_FACING_DIRECTIONS.includes(facingDirection);
+};
+
+export const isPlacedInsideTheTable = ({ x, y }: CoordinateObject) => {
+    return x >= 0 && x <= TABLE_DIMENSION.x && y >= 0 && y <= TABLE_DIMENSION.y;
 };
 
 export type TProcessResult = {
@@ -104,6 +116,13 @@ export const processCommandUtil = ({
                 return processedResult;
             }
 
+            if (isPlacedInsideTheTable({ x, y })) {
+                // TODO: Handle
+            } else {
+                processedResult.error = {
+                    message: 'Robot must be place on the table to start.',
+                };
+            }
         }
         break;
         case VALID_COMMAND.MOVE:
