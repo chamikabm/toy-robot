@@ -21,7 +21,7 @@ export type SimulatorState = {
     error: null | string;
 }
 
-const initialState = {
+export const initialState: SimulatorState = {
     commandHistory: [],
     commandOutput: '',
     hasRobotPlacedOnTheTable : false,
@@ -62,6 +62,7 @@ export const {
 
 // Selectors
 export const selectError = (state: RootState) => state.simulator.error;
+export const selectCoordinate = (state: RootState) => state.simulator.coordinate;
 
 // Reducer
 export default simulatorSlice.reducer;
