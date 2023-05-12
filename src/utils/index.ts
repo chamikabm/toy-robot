@@ -1,9 +1,11 @@
 import {
+    ROTATE_DEG,
     ORIENTATION,
-    TABLE_DIMENSION,
     VALID_COMMAND,
+    TABLE_DIMENSION,
+    VALID_DIRECTION,
+    VALID_VALID_COMMANDS,
     VALID_FACING_DIRECTIONS,
-    VALID_VALID_COMMANDS
 } from '../constants';
 import {
     Facing,
@@ -48,6 +50,34 @@ export const isPlacedInsideTheTable = ({ x, y }: CoordinateObject) => {
 
 export const getFacingOrientation = (newOrientation: Direction) => {
     return ORIENTATION[newOrientation];
+};
+
+export const getRotateBy = (direction: string | null) => {
+    if (!direction) {
+        return null;
+    }
+
+    return ROTATE_DEG[direction];
+};
+
+export const getDirection = (facing: Facing) => {
+
+    if (facing) {
+        const x = facing.x;
+        const y = facing.y;
+
+        if (x === 0 && y === 1) {
+            return VALID_DIRECTION.NORTH;
+        } else if (x === 0 && y === -1) {
+            return VALID_DIRECTION.SOUTH;
+        } else if (x === 1 && y === 0) {
+            return VALID_DIRECTION.EAST;
+        } else if (x === -1 && y === 0) {
+            return VALID_DIRECTION.WEST;
+        }
+    }
+
+    return null;
 };
 
 export type TProcessResult = {
@@ -158,40 +188,90 @@ export const processCommandUtil = ({
         break;
         case VALID_COMMAND.MOVE:
             if (isPlaced) {
-                // Handle command
+                const currentX = currCoordinate ? currCoordinate.x : 0;
+                const currentY = currCoordinate ? currCoordinate.y : 0;
+                const newCoordinates = {
+                    x: currentX + (currFacing ? currFacing.x : 0),
+                    y: currentY + (currFacing ? currFacing.y : 0),
+                };
+
+                if (isPlacedInsideTheTable(newCoordinates)) {
+                    processedResult.facing = currFacing;
+                    processedResult.coordinate = newCoordinates;
+                    processedResult.placed = true;
+                    processedResult.success = true;
+                    processedResult.processedCommand = commandExecuted;
+                    processedResult.processedCommandOutput = '';
+                } else {
+                    processedResult.error = {
+                        message: 'Robot cannot move further on this direction.',
+                    }
+                }
             } else {
                 processedResult.error = {
                     message: 'Robot must be place on the table before executing other commands',
                 };
             }
-        break;
+            break;
         case VALID_COMMAND.LEFT:
             if (isPlaced) {
-                // Handle command
+                const currentFacingCoordinates = {
+                    x: currFacing ? currFacing.x : 0,
+                    y: currFacing ? currFacing.y : 0,
+                };
+
+                processedResult.facing = {
+                    x: currentFacingCoordinates.y === 0 ? 0 : -currentFacingCoordinates.y,
+                    y: currentFacingCoordinates.x,
+                }
+                processedResult.coordinate = currCoordinate;
+                processedResult.placed = true;
+                processedResult.success = true;
+                processedResult.processedCommand = commandExecuted;
+                processedResult.processedCommandOutput = '';
             } else {
                 processedResult.error = {
                     message: 'Robot must be place on the table before executing other commands',
                 };
             }
-        break;
+            break;
         case VALID_COMMAND.RIGHT:
             if (isPlaced) {
-                // Handle command
+                const currentFacingCoordinates = {
+                    x: currFacing ? currFacing.x : 0,
+                    y: currFacing ? currFacing.y : 0,
+                };
+                processedResult.facing = {
+                    x: currentFacingCoordinates.y,
+                    y: currentFacingCoordinates.x === 0 ?  0 : -currentFacingCoordinates.x,
+                };
+                processedResult.coordinate = currCoordinate;
+                processedResult.placed = true;
+                processedResult.success = true;
+                processedResult.processedCommand = commandExecuted;
+                processedResult.processedCommandOutput = '';
             } else {
                 processedResult.error = {
                     message: 'Robot must be place on the table before executing other commands',
                 };
             }
-        break;
+            break;
         case VALID_COMMAND.REPORT:
             if (isPlaced) {
-                // Handle command
-            } else {
+                const facingDirection = getDirection(currFacing);
+                const currentX = currCoordinate ? currCoordinate.x : 0;
+                const currentY = currCoordinate ? currCoordinate.y : 0;
+
+                processedResult.success = true
+                processedResult.processedCommand = commandExecuted;
+                processedResult.processedCommandOutput =
+                  `${currentX},${currentY},${facingDirection}`;
+            } else  {
                 processedResult.error = {
                     message: 'Robot must be place on the table before executing other commands',
                 };
             }
-        break;
+            break;
         default:
             processedResult.error = {
                 message: `Invalid facing direction. Only allowed : ${VALID_VALID_COMMANDS}`,
@@ -201,3 +281,5 @@ export const processCommandUtil = ({
 
     return processedResult;
 };
+
+

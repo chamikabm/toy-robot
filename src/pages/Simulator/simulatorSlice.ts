@@ -42,8 +42,14 @@ export const simulatorSlice = createSlice({
                 currFacing: state.facing,
                 isPlaced: state.hasRobotPlacedOnTheTable,
             });
+
             if (processedResult.success) {
                 state.error = '';
+                state.coordinate = processedResult.coordinate;
+                state.facing = processedResult.facing;
+                state.hasRobotPlacedOnTheTable = processedResult.placed;
+                state.commandOutput = processedResult.processedCommandOutput;
+                state.commandHistory.unshift(processedResult.processedCommand);
             } else {
                 state.error = processedResult.error.message;
             }
@@ -63,6 +69,7 @@ export const {
 // Selectors
 export const selectError = (state: RootState) => state.simulator.error;
 export const selectCoordinate = (state: RootState) => state.simulator.coordinate;
+export const selectFacing = (state: RootState) => state.simulator.facing;
 
 // Reducer
 export default simulatorSlice.reducer;

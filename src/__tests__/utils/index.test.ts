@@ -1,4 +1,6 @@
 import {
+    getRotateBy,
+    getDirection,
     arrayHasElements,
     getCommandValues,
     isExpectedCommand,
@@ -9,7 +11,7 @@ import {
     isValidaFacingDirection,
 } from '../../utils';
 import {
-    ORIENTATION,
+    ORIENTATION, ROTATE_DEG,
     VALID_COMMAND,
     VALID_DIRECTION,
 } from '../../constants';
@@ -245,6 +247,75 @@ describe('Testing: app/utils', () => {
             const facing = { x: 1, y: 0 };
             const result = getFacingOrientation(VALID_DIRECTION.EAST);
             expect(result).toEqual(facing);
+        });
+    });
+
+    describe('getRotateBy', () => {
+        test('it should null if the direction is null', () => {
+            const result = getRotateBy(null);
+            expect(result).toBeNull();
+        });
+
+        test('it should undefined if the direction is UNKNOWN', () => {
+            const direction = 'UNKNOWN';
+            const result = getRotateBy(direction);
+            expect(result).toBeUndefined();
+        });
+
+        test('it should null if the direction is EAST', () => {
+            const direction = VALID_DIRECTION.EAST;
+            const result = getRotateBy(direction);
+            expect(result).toBe(ROTATE_DEG.EAST);
+        });
+
+        test('it should null if the direction is WEST', () => {
+            const direction = VALID_DIRECTION.WEST;
+            const result = getRotateBy(direction);
+            expect(result).toBe(ROTATE_DEG.WEST);
+        });
+
+        test('it should null if the direction is NORTH', () => {
+            const direction = VALID_DIRECTION.NORTH;
+            const result = getRotateBy(direction);
+            expect(result).toBe(ROTATE_DEG.NORTH);
+        });
+
+        test('it should null if the direction is SOUTH', () => {
+            const direction = VALID_DIRECTION.SOUTH;
+            const result = getRotateBy(direction);
+            expect(result).toBe(ROTATE_DEG.SOUTH);
+        });
+    });
+
+    describe('getDirection', () => {
+        test('it should return null if facing coordinates are not in the rage', () => {
+            const facing = { x: 2, y: 2 };
+            const result = getDirection(facing);
+            expect(result).toBe(null);
+        });
+
+        test('it should return NORTH if facing coordinates are { x: 0, y: 1 }', () => {
+            const facing = { x: 0, y: 1 };
+            const result = getDirection(facing);
+            expect(result).toEqual(VALID_DIRECTION.NORTH);
+        });
+
+        test('it should return WEST if facing coordinates are { x: -1, y: 0 }', () => {
+            const facing = { x: -1, y: 0 };
+            const result = getDirection(facing);
+            expect(result).toEqual(VALID_DIRECTION.WEST);
+        });
+
+        test('it should return SOUTH if facing coordinates are { x: 0, y: -1 }', () => {
+            const facing = { x: 0, y: -1 };
+            const result = getDirection(facing);
+            expect(result).toEqual(VALID_DIRECTION.SOUTH);
+        });
+
+        test('it should return EAST if facing coordinates are { x: 1, y: 0 }', () => {
+            const facing = { x: 1, y: 0 };
+            const result = getDirection(facing);
+            expect(result).toEqual(VALID_DIRECTION.EAST);
         });
     });
 
