@@ -8,6 +8,7 @@ import {
 import {
     store,
 } from './store';
+import ErrorBoundary from './components/ErrorBoundary';
 
 const rootNode = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,11 +20,13 @@ if (!rootNode) {
 
 rootNode.render(
   <React.StrictMode>
+    <ErrorBoundary>
       <Provider
           store={store}
       >
           <App />
       </Provider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
