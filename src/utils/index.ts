@@ -1,12 +1,16 @@
 import {
+    ORIENTATION,
     TABLE_DIMENSION,
     VALID_COMMAND,
     VALID_FACING_DIRECTIONS,
-    VALID_VALID_COMMANDS,
-} from '../constants';
+    VALID_VALID_COMMANDS
+} from "../constants";
 import {
+    Facing,
+    Direction,
+    Coordinate,
     CoordinateObject,
-} from '../types';
+} from "../types";
 
 export const getCommandValues = (command: string) => {
     try {
@@ -42,26 +46,44 @@ export const isPlacedInsideTheTable = ({ x, y }: CoordinateObject) => {
     return x >= 0 && x <= TABLE_DIMENSION.x && y >= 0 && y <= TABLE_DIMENSION.y;
 };
 
+export const getFacingOrientation = (newOrientation: Direction) => {
+    return ORIENTATION[newOrientation];
+};
+
 export type TProcessResult = {
+    coordinate: Coordinate;
+    facing: Facing;
+    placed: boolean;
     success: boolean;
+    processedCommand: string;
+    processedCommandOutput: string;
     error: {
         message: string;
     };
 };
 
 export type TProcessCommandInputs = {
-    isPlaced: boolean;
     commandExecuted: string;
+    currCoordinate: Coordinate;
+    currFacing: Facing;
+    isPlaced: boolean;
 };
 
 export const processCommandUtil = ({
                                        isPlaced,
+                                       currFacing,
+                                       currCoordinate,
                                        commandExecuted,
                                    }: TProcessCommandInputs): TProcessResult => {
     const commandValues = getCommandValues(commandExecuted);
 
     const processedResult: TProcessResult = {
+        facing: currFacing,
+        placed: isPlaced,
         success: false,
+        coordinate: currCoordinate,
+        processedCommand: '',
+        processedCommandOutput: '',
         error: {
             message: '',
         },
@@ -117,7 +139,16 @@ export const processCommandUtil = ({
             }
 
             if (isPlacedInsideTheTable({ x, y })) {
-                // TODO: Handle
+                const coordinate = {
+                    x,
+                    y,
+                };
+                processedResult.facing = getFacingOrientation(facingDirection as Direction);
+                processedResult.coordinate = coordinate;
+                processedResult.placed = true;
+                processedResult.success = true;
+                processedResult.processedCommand = commandExecuted;
+                processedResult.processedCommandOutput = '';
             } else {
                 processedResult.error = {
                     message: 'Robot must be place on the table to start.',

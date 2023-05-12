@@ -7,14 +7,26 @@ import {
 import {
     RootState,
 } from '../../store';
+import {
+    Facing,
+    Coordinate,
+} from '../../types';
 
 export type SimulatorState = {
+    commandHistory: string[];
+    commandOutput: string;
     hasRobotPlacedOnTheTable: boolean;
+    coordinate: Coordinate;
+    facing: Facing;
     error: null | string;
 }
 
 const initialState = {
+    commandHistory: [],
+    commandOutput: '',
     hasRobotPlacedOnTheTable : false,
+    coordinate : null,
+    facing: null,
     error: '',
 };
 
@@ -26,6 +38,8 @@ export const simulatorSlice = createSlice({
             const command = action.payload as string;
             const processedResult = processCommandUtil({
                 commandExecuted: command,
+                currCoordinate: state.coordinate,
+                currFacing: state.facing,
                 isPlaced: state.hasRobotPlacedOnTheTable,
             });
             if (processedResult.success) {
