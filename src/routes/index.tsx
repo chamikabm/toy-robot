@@ -1,18 +1,20 @@
 import React,
 {
     FC,
+    Suspense,
 } from 'react';
 import {
     Route,
     Routes,
     BrowserRouter as Router,
 } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Layout from '../components/Layout';
 
 // Routes
-import Simulator from '../pages/Simulator';
-import HowTo from '../pages/HowTo';
+const Simulator = React.lazy(() => import('../pages/Simulator'));
+const HowTo = React.lazy(() => import('../pages/HowTo'));
 
 type Route = {
     key: string,
@@ -50,7 +52,13 @@ const AllRoutes = () => {
                             <Route
                                 key={route.key}
                                 path={route.path}
-                                element={<route.component />}
+                                element={
+                                    <Suspense
+                                      fallback={<CircularProgress />}
+                                    >
+                                        <route.component />
+                                    </Suspense>
+                                }
                             />
                         ))
                     }
