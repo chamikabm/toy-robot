@@ -1,9 +1,9 @@
 import React from 'react';
+import AllRoutes from './routes';
 
 const App = () => {
   return (
-    <div>
-    </div>
+      <AllRoutes />
   );
 };
 
