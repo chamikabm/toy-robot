@@ -10,6 +10,7 @@ import BaseContainer from '../../components/BaseContainer';
 import CommandsInput from '../../components/CommandsInput';
 import CommandsHistory from '../../components/CommandsHistory';
 import CommandOutput from '../../components/CommandOutput';
+import CommandError from '../../components/CommandError';
 
 const Simulator: FC = (): ReactElement => {
 
@@ -51,9 +52,10 @@ const Simulator: FC = (): ReactElement => {
                     xs={12}
                     data-cy={'simulator-grid-commands'}
                   >
-                      <CommandsInput />
-                      <CommandOutput />
-                      <CommandsHistory />
+                    <CommandsInput />
+                    <CommandError />
+                    <CommandOutput />
+                    <CommandsHistory />
                   </Grid>
               </Grid>
           </Box>
