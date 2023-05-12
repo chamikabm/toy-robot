@@ -1,6 +1,6 @@
 import {
     arrayHasElements,
-    getCommandValues, isExpectedCommand,
+    getCommandValues, isExpectedCommand, isValidCoordinate,
     processCommandUtil
 } from "../../utils";
 import {
@@ -97,6 +97,32 @@ describe('Testing: app/utils', () => {
         test('it should return true if the command is REPORT and expected REPORT', () => {
             const command = VALID_COMMAND.REPORT;
             const result = isExpectedCommand(command, command);
+            expect(result).toBe(true);
+        });
+    });
+
+    describe('isValidCoordinate', () => {
+        test('it should return false if the coordinate is not a number', () => {
+            const coordinate = 1.1;
+            const result = isValidCoordinate(coordinate);
+            expect(result).toBe(false);
+        });
+
+        test('it should return true if the coordinate is a number', () => {
+            const coordinate = 1;
+            const result = isValidCoordinate(coordinate);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the coordinate is 0', () => {
+            const coordinate = 0;
+            const result = isValidCoordinate(coordinate);
+            expect(result).toBe(true);
+        });
+
+        test('it should return true if the coordinate is 5', () => {
+            const coordinate = 0;
+            const result = isValidCoordinate(coordinate);
             expect(result).toBe(true);
         });
     });

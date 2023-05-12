@@ -22,6 +22,10 @@ export const isExpectedCommand = (expected: string, received: string) => {
     }
 };
 
+export const isValidCoordinate = (coordinate: number) => {
+    return Number.isInteger(coordinate) && Math.sign(coordinate) >= 0;
+};
+
 export type TProcessResult = {
     success: boolean;
     error: {
@@ -66,6 +70,25 @@ export const processCommandUtil = ({
 
                 return processedResult;
             }
+
+            if (!arrayHasElements(commandValues, 4)) {
+                processedResult.error = {
+                    message: 'Invalid PLACE command.',
+                };
+
+                return processedResult;
+            }
+
+            const x = parseInt(commandValues[1], 10);
+            const y = parseInt(commandValues[2], 10);
+            if (!isValidCoordinate(x) || !isValidCoordinate(y)) {
+                processedResult.error = {
+                    message: 'Invalid coordinates.',
+                };
+
+                return processedResult;
+            }
+
         }
         break;
         default:
