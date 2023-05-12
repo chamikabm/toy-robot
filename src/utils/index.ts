@@ -34,10 +34,12 @@ export type TProcessResult = {
 };
 
 export type TProcessCommandInputs = {
+    isPlaced: boolean;
     commandExecuted: string;
 };
 
 export const processCommandUtil = ({
+                                       isPlaced,
                                        commandExecuted,
                                    }: TProcessCommandInputs): TProcessResult => {
     const commandValues = getCommandValues(commandExecuted);
@@ -90,6 +92,42 @@ export const processCommandUtil = ({
             }
 
         }
+        break;
+        case VALID_COMMAND.MOVE:
+            if (isPlaced) {
+                // Handle command
+            } else {
+                processedResult.error = {
+                    message: 'Robot must be place on the table before executing other commands',
+                };
+            }
+        break;
+        case VALID_COMMAND.LEFT:
+            if (isPlaced) {
+                // Handle command
+            } else {
+                processedResult.error = {
+                    message: 'Robot must be place on the table before executing other commands',
+                };
+            }
+        break;
+        case VALID_COMMAND.RIGHT:
+            if (isPlaced) {
+                // Handle command
+            } else {
+                processedResult.error = {
+                    message: 'Robot must be place on the table before executing other commands',
+                };
+            }
+        break;
+        case VALID_COMMAND.REPORT:
+            if (isPlaced) {
+                // Handle command
+            } else {
+                processedResult.error = {
+                    message: 'Robot must be place on the table before executing other commands',
+                };
+            }
         break;
         default:
             processedResult.error = {

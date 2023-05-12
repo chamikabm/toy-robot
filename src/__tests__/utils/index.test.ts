@@ -131,9 +131,34 @@ describe('Testing: app/utils', () => {
         test('it should not process invalid UNKNOWN command.', () => {
             const processCommandInput  = {
                 commandExecuted: 'UNKNOWN',
+                isPlaced: false,
             };
             const processCommandResult  = {
                 'error': {'message': 'Invalid command'},
+                'success': false,
+            };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+        test('it should not process invalid MOVE command.', () => {
+            const processCommandInput  = {
+                commandExecuted: 'MOVE',
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                'error': {'message': 'Robot must be place on the table before executing other commands'},
+                'success': false,
+            };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+        test('it should not process invalid REPORT command.', () => {
+            const processCommandInput  = {
+                commandExecuted: 'MOVE',
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                'error': {'message': 'Robot must be place on the table before executing other commands'},
                 'success': false,
             };
             const result = processCommandUtil(processCommandInput);
