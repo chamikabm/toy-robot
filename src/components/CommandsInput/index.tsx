@@ -1,7 +1,6 @@
 import React,
 {
   useState,
-  useCallback,
 } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -26,9 +25,9 @@ const CommandsInput = () => {
   const [ command, setCommand ] = useState<string|null>('');
   const dispatch = useAppDispatch();
 
-  const onChange = useCallback((e: React.SyntheticEvent, value: string | null) => {
+  const onChange = (e: React.SyntheticEvent, value: string | null) => {
     setCommand(value);
-  }, []);
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
