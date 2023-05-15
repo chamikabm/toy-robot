@@ -30,7 +30,7 @@ const Square: NamedExoticComponent<TSquare> = memo(({ rowIndex, colIndex }: TSqu
   const isDarkSquare = (rowIndex + colIndex) % 2 === 1;
   const color = isDarkSquare ? theme.palette.secondary.dark : theme.palette.secondary.light;
   const rowReverseIndex = CONFIG_BOARD_SIZE - rowIndex - 1;
-  const cellName = `${colIndex}-${rowReverseIndex}`;
+  const squareName = `${colIndex}-${rowReverseIndex}`;
   let robotSquare = false;
 
   if (coordinate) {
@@ -41,7 +41,7 @@ const Square: NamedExoticComponent<TSquare> = memo(({ rowIndex, colIndex }: TSqu
 
   return (
     <Grid
-      key={cellName}
+      key={squareName}
       item
       data-cy={`simulator-table-square-grid-item-${rowIndex}-${colIndex}`}
     >
@@ -58,7 +58,7 @@ const Square: NamedExoticComponent<TSquare> = memo(({ rowIndex, colIndex }: TSqu
         data-cy={`simulator-table-square-paper-${rowIndex}-${colIndex}`}
       >
         <Text
-          text={cellName}
+          text={squareName}
           type={'overline'}
           data-cy={`simulator-table-square-text-index-${rowIndex}-${colIndex}`}
         />
