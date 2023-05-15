@@ -38,7 +38,7 @@ export const appRoutes: Array<Route> = [
         key: 'how-to',
         title: 'How To Simulate',
         path: '/howto',
-        enabled: false,
+        enabled: true,
         component: HowTo
     },
 ];
