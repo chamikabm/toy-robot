@@ -30,7 +30,7 @@ const Square: NamedExoticComponent<TSquare> = memo(({ rowIndex, colIndex }: TSqu
   const isDarkSquare = (rowIndex + colIndex) % 2 === 1;
   const color = isDarkSquare ? theme.palette.secondary.dark : theme.palette.secondary.light;
   const rowReverseIndex = CONFIG_BOARD_SIZE - rowIndex - 1;
-  const cellName = `${rowReverseIndex}-${colIndex}`;
+  const cellName = `${colIndex}-${rowReverseIndex}`;
   let robotSquare = false;
 
   if (coordinate) {
