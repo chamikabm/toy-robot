@@ -1,7 +1,11 @@
 import React,
 {
+  NamedExoticComponent,
   memo,
 } from 'react';
+import {
+  useTheme,
+} from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Text from '../Text';
@@ -18,29 +22,26 @@ import {
 import {
   selectCoordinate,
 } from '../../pages/Simulator/simulatorSlice';
-import {
-  useTheme,
-} from '@mui/material';
 
-const Square = memo(({ rowIndex, colIndex }: TSquare) => {
+const Square: NamedExoticComponent<TSquare> = memo(({ rowIndex, colIndex }: TSquare) => {
   const coordinate = useAppSelector(selectCoordinate);
   const theme = useTheme();
 
   const isDarkSquare = (rowIndex + colIndex) % 2 === 1;
   const color = isDarkSquare ? theme.palette.secondary.dark : theme.palette.secondary.light;
+  const rowReverseIndex = CONFIG_BOARD_SIZE - rowIndex - 1;
+  const cellName = `${rowReverseIndex}-${colIndex}`;
   let robotSquare = false;
 
   if (coordinate) {
     robotSquare = coordinate
       && coordinate.x === colIndex
-      && coordinate.y === (CONFIG_BOARD_SIZE - rowIndex - 1);
+      && coordinate.y === rowReverseIndex;
   }
-
-  const cellName = `${colIndex}-${CONFIG_BOARD_SIZE - rowIndex - 1}`;
 
   return (
     <Grid
-      key={`${CONFIG_BOARD_SIZE - rowIndex - 1}-${colIndex}`}
+      key={cellName}
       item
       data-cy={`simulator-table-square-grid-item-${rowIndex}-${colIndex}`}
     >

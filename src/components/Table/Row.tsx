@@ -2,6 +2,7 @@ import React,
 {
   memo,
   useMemo,
+  NamedExoticComponent,
 } from 'react'
 import Grid from '@mui/material/Grid';
 import Square from './Square';
@@ -12,7 +13,7 @@ import {
   TRow,
 } from './types';
 
-const  Row = memo(({ rowIndex }: TRow)  => {
+const  Row: NamedExoticComponent<TRow> = memo(({ rowIndex }: TRow)  => {
 
   const squares = useMemo(() => {
     const squares = Array.from(Array(CONFIG_BOARD_SIZE).keys());

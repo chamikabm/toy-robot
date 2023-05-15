@@ -1,6 +1,8 @@
 import React,
 {
+  FC,
   useMemo,
+  ReactElement,
 } from 'react'
 import Grid from '@mui/material/Grid'
 import Row from './Row'
@@ -8,7 +10,7 @@ import {
   CONFIG_BOARD_SIZE,
 } from '../../constants'
 
-const Table = () => {
+const Table: FC = (): ReactElement => {
 
   const rows = useMemo(() => {
     const rows = Array.from(Array(CONFIG_BOARD_SIZE).keys());
