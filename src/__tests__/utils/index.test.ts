@@ -361,8 +361,49 @@ describe('Testing: app/utils', () => {
                   processedCommand: 'PLACE 0,0,NORTH',
                   processedCommandOutput: '',
                   success: true,
-              }
-            ;
+              };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+
+        test('it should process MOVE', () => {
+            const processCommandInput  = {
+                commandExecuted: 'MOVE',
+                currCoordinate: { x: 0, y: 0},
+                currFacing: ORIENTATION.NORTH,
+                isPlaced: true,
+            };
+            const processCommandResult  = {
+                'coordinate': {'x': 0, 'y': 1},
+                'error': {'message': ''},
+                'facing': {'x': 0, 'y': 1},
+                'placed': true,
+                'processedCommand': 'MOVE',
+                'processedCommandOutput': '',
+                'success': true,
+              };
+            const result = processCommandUtil(processCommandInput);
+            expect(result).toEqual(processCommandResult);
+        });
+
+        test('it should not process if the command not found', () => {
+            const processCommandInput  = {
+                commandExecuted: 'NOT_A_COMMAND',
+                currCoordinate: { x: 0, y: 0},
+                currFacing: ORIENTATION.NORTH,
+                isPlaced: false,
+            };
+            const processCommandResult  = {
+                'coordinate': {'x': 0, 'y': 0},
+                'error': {
+                    'message': 'Invalid command. Only allowed : PLACE,MOVE,LEFT,RIGHT,REPORT',
+                },
+                'facing': {'x': 0, 'y': 1},
+                'placed': false,
+                'processedCommand': '',
+                'processedCommandOutput': '',
+                'success': false,
+            }
             const result = processCommandUtil(processCommandInput);
             expect(result).toEqual(processCommandResult);
         });

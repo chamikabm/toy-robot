@@ -113,6 +113,9 @@ export const processCommandUtil = ({
         return processedResult;
     }
 
+    // ['PLACE', '0', '0', 'NORTH']
+    // ['MOVE']
+
     const command = commandValues[0];
     switch (command) {
         case VALID_COMMAND.PLACE:
@@ -258,7 +261,7 @@ export const processCommandUtil = ({
             break;
         default:
             processedResult.error = {
-                message: `Invalid facing direction. Only allowed : ${VALID_VALID_COMMANDS}`,
+                message: `Invalid command. Only allowed : ${VALID_VALID_COMMANDS}`,
             };
             break;
     }
