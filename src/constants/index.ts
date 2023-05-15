@@ -1,6 +1,7 @@
 import {
-  Orientation, RotateDeg
-} from "../types";
+  RotateDeg,
+  Orientation,
+} from '../types';
 
 export const VALID_COMMAND = Object.freeze({
   PLACE: 'PLACE',
