@@ -3,12 +3,12 @@ import React,
   memo,
   useMemo,
   NamedExoticComponent,
-} from 'react'
+} from 'react';
 import Grid from '@mui/material/Grid';
 import Square from './Square';
 import {
   CONFIG_BOARD_SIZE,
-} from '../../constants'
+} from '../../constants';
 import {
   TRow,
 } from './types';

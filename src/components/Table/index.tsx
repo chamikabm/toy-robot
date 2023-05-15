@@ -3,12 +3,12 @@ import React,
   FC,
   useMemo,
   ReactElement,
-} from 'react'
-import Grid from '@mui/material/Grid'
-import Row from './Row'
+} from 'react';
+import Grid from '@mui/material/Grid';
+import Row from './Row';
 import {
   CONFIG_BOARD_SIZE,
-} from '../../constants'
+} from '../../constants';
 
 const Table: FC = (): ReactElement => {
 
