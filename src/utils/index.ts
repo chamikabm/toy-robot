@@ -117,14 +117,6 @@ export const processCommandUtil = ({
     switch (command) {
         case VALID_COMMAND.PLACE:
         {
-            if (!isExpectedCommand(VALID_COMMAND.PLACE, command)) {
-                processedResult.error = {
-                    message: 'Robot must be place on the table to start.',
-                };
-
-                return processedResult;
-            }
-
             if (!arrayHasElements(commandValues, 4)) {
                 processedResult.error = {
                     message: 'Invalid PLACE command.',
