@@ -1,5 +1,6 @@
 import React,
 {
+  ReactElement,
   PropsWithChildren,
 } from 'react';
 import {
@@ -46,7 +47,7 @@ export function renderWithProviders(
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
+  function Wrapper({ children }: PropsWithChildren<NonNullable<unknown>>): ReactElement {
     return <Provider store={store}>{children}</Provider>
   }
 

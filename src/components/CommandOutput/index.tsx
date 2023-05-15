@@ -26,9 +26,10 @@ const CommandOutput = () => {
     >
       <Alert
         severity="success"
-        role={'command-output-alert'}
       >
-        <AlertTitle>
+        <AlertTitle
+          role={'command-output-alert-title'}
+        >
           Output: {commandOutput}
         </AlertTitle>
       </Alert>
