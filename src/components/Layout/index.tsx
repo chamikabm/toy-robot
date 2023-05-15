@@ -1,17 +1,16 @@
 import React,
 {
-    FC,
-    ReactNode,
+  FC,
 } from 'react';
+import {
+  Outlet,
+} from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 
-type LayoutProps = {
-    children: ReactNode;
-}
+const Layout: FC = (): React.ReactElement => {
 
-const Layout: FC<LayoutProps> = ({ children }) => {
     return (
         <Box
             sx={{
@@ -25,7 +24,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
             data-cy={'simulator-layout'}
         >
             <Navbar />
-            {children}
+            <Outlet />
             <Footer />
         </Box>
     );

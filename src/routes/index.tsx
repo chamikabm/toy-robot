@@ -2,10 +2,12 @@ import React,
 {
     FC,
     Suspense,
+    ReactElement,
 } from 'react';
 import {
     Route,
     Routes,
+    Navigate,
     BrowserRouter as Router,
 } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -36,34 +38,41 @@ export const appRoutes: Array<Route> = [
         key: 'how-to',
         title: 'How To Simulate',
         path: '/howto',
-        enabled: true,
+        enabled: false,
         component: HowTo
-    }
+    },
 ];
 
-const AllRoutes = () => {
+const AllRoutes: FC = (): ReactElement => {
 
     return (
         <Router>
-            <Layout>
-                <Routes>
-                    {
-                        appRoutes.map((route) => (
-                            <Route
-                                key={route.key}
-                                path={route.path}
-                                element={
+            <Routes>
+                <Route
+                  element={<Layout />}
+                >
+                        {
+                            appRoutes.map((route) => (
+                              route.enabled ?
+                                <Route
+                                  key={route.key}
+                                  path={route.path}
+                                  element={
                                     <Suspense
                                       fallback={<CircularProgress />}
                                     >
                                         <route.component />
                                     </Suspense>
-                                }
-                            />
-                        ))
-                    }
-                </Routes>
-            </Layout>
+                                  }
+                                /> : null
+                            ))
+                        }
+                    <Route
+                      path="*"
+                      element={<Navigate to="/" replace={true} />}
+                    />
+                </Route>
+            </Routes>
         </Router>
     );
 };

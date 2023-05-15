@@ -103,29 +103,31 @@ const Navbar: FC = (): ReactElement => {
               }}
               data-cy={'simulator-navbar-menu'}
             >
-              {appRoutes.map((route) => (
-                <Link
-                  key={route.key}
-                  component={NavLink}
-                  to={route.path}
-                  color="black"
-                  underline="none"
-                  variant="button"
-                  data-cy={`simulator-navbar-menu-link-${route.key}`}
-                >
-                  <MenuItem
-                    onClick={handleCloseNavMenu}
-                    data-cy={`simulator-navbar-menu-item-${route.key}`}
-                  >
-                    <Typography
-                      textAlign="center"
-                      data-cy={`simulator-navbar-menu-typo-${route.key}`}
+              {
+                appRoutes.map((route) => (
+                  route.enabled ?
+                    <Link
+                      key={route.key}
+                      component={NavLink}
+                      to={route.path}
+                      color="black"
+                      underline="none"
+                      variant="button"
+                      data-cy={`simulator-navbar-menu-link-${route.key}`}
                     >
-                      {route.title}
-                    </Typography>
-                  </MenuItem>
-                </Link>
-              ))}
+                      <MenuItem
+                        onClick={handleCloseNavMenu}
+                        data-cy={`simulator-navbar-menu-item-${route.key}`}
+                      >
+                        <Typography
+                          textAlign="center"
+                          data-cy={`simulator-navbar-menu-typo-${route.key}`}
+                        >
+                          {route.title}
+                        </Typography>
+                      </MenuItem>
+                    </Link> : null
+                ))}
             </Menu>
           </Box>
           <Typography
@@ -163,23 +165,25 @@ const Navbar: FC = (): ReactElement => {
               }}
               data-cy={'simulator-navbar-menu-box-routes'}
             >
-              {appRoutes.map((route) => (
-                <Link
-                  key={route.key}
-                  component={NavLink}
-                  to={route.path}
-                  color="black"
-                  underline="none"
-                  variant="button"
-                  sx={{
-                    fontSize: 'large',
-                    marginLeft: '2rem',
-                  }}
-                  data-cy={`simulator-navbar-menu-link-${route.key}`}
-                >
-                  {route.title}
-                </Link>
-              ))}
+              {
+                appRoutes.map((route) => (
+                  route.enabled ?
+                    <Link
+                      key={route.key}
+                      component={NavLink}
+                      to={route.path}
+                      color="black"
+                      underline="none"
+                      variant="button"
+                      sx={{
+                        fontSize: 'large',
+                        marginLeft: '2rem',
+                      }}
+                      data-cy={`simulator-navbar-menu-link-${route.key}`}
+                    >
+                      {route.title}
+                    </Link> : null
+                ))}
             </Box>
           </Box>
         </Toolbar>
