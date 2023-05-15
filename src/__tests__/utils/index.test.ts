@@ -45,6 +45,11 @@ describe('Testing: app/utils', () => {
             const result = getCommandValues(VALID_COMMAND.REPORT);
             expect(result).toEqual([ VALID_COMMAND.REPORT ]);
         });
+
+        test('it should return [ PLACE, 0,0,NORTH ] if the command is PLACE 0,0,NORTH', () => {
+            const result = getCommandValues('PLACE 0,0,NORTH');
+            expect(result).toEqual([ 'PLACE', '0','0', 'NORTH' ]);
+        });
     });
 
     describe('arrayHasElements', () => {
