@@ -1,5 +1,6 @@
 import {
     createSlice,
+    PayloadAction,
 } from '@reduxjs/toolkit';
 import {
     processCommandUtil,
@@ -24,8 +25,8 @@ export const simulatorSlice = createSlice({
     name: 'simulator',
     initialState,
     reducers: {
-        processCommand: (state, action) => {
-            const command = action.payload as string;
+        processCommand: (state, action: PayloadAction<string>) => {
+            const command = action.payload;
             const processedResult = processCommandUtil({
                 commandExecuted: command,
                 currCoordinate: state.coordinate,
