@@ -123,6 +123,12 @@ describe('Testing: app/utils', () => {
             expect(result).toBe(false);
         });
 
+        test('it should return false if the coordinate is negative number', () => {
+            const coordinate = -1;
+            const result = isValidCoordinate(coordinate);
+            expect(result).toBe(false);
+        });
+
         test('it should return true if the coordinate is a number', () => {
             const coordinate = 1;
             const result = isValidCoordinate(coordinate);
