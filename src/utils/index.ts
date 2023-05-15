@@ -113,9 +113,6 @@ export const processCommandUtil = ({
         return processedResult;
     }
 
-    // ['PLACE', '0', '0', 'NORTH']
-    // ['MOVE']
-
     const command = commandValues[0];
     switch (command) {
         case VALID_COMMAND.PLACE:
