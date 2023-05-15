@@ -19,6 +19,7 @@ const Table: FC = (): ReactElement => {
         <Row
           key={rowIndex}
           rowIndex={rowIndex}
+          data-cy={`simulator-table-row-${rowIndex}`}
         />
       );
     })

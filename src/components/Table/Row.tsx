@@ -23,6 +23,7 @@ const  Row: NamedExoticComponent<TRow> = memo(({ rowIndex }: TRow)  => {
           key={colIndex}
           rowIndex={rowIndex}
           colIndex={colIndex}
+          data-cy={`simulator-table-row-square-${rowIndex}-${colIndex}`}
         />
       );
     })
