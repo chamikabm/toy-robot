@@ -10,9 +10,12 @@ import {
 import {
     Facing,
     Direction,
-    Coordinate,
     CoordinateObject,
 } from '../types';
+import {
+    TProcessResult,
+    TProcessCommandInputs,
+} from './types';
 
 export const getCommandValues = (command: string) => {
     try {
@@ -23,11 +26,11 @@ export const getCommandValues = (command: string) => {
     }
 };
 
-export const arrayHasElements = (arr: string[], expectedElementCount = 1 ) => {
+export const arrayHasElements = (arr: string[], expectedElementCount = 1 ): boolean => {
     return Array.isArray(arr) && (arr.length >= expectedElementCount);
 };
 
-export const isExpectedCommand = (expected: string, received: string) => {
+export const isExpectedCommand = (expected: string, received: string): boolean => {
     try {
         const regex = new RegExp(`^${expected}\\s*$`, 'i');
         return regex.test(received);
@@ -36,23 +39,23 @@ export const isExpectedCommand = (expected: string, received: string) => {
     }
 };
 
-export const isValidCoordinate = (coordinate: number) => {
+export const isValidCoordinate = (coordinate: number): boolean => {
     return Number.isInteger(coordinate) && Math.sign(coordinate) >= 0;
 };
 
-export const isValidaFacingDirection = (facingDirection: string) => {
-    return facingDirection && VALID_FACING_DIRECTIONS.includes(facingDirection);
+export const isValidaFacingDirection = (facingDirection: string): boolean => {
+    return Boolean(facingDirection && VALID_FACING_DIRECTIONS.includes(facingDirection));
 };
 
-export const isPlacedInsideTheTable = ({ x, y }: CoordinateObject) => {
+export const isPlacedInsideTheTable = ({ x, y }: CoordinateObject): boolean => {
     return x >= 0 && x <= TABLE_DIMENSION.x && y >= 0 && y <= TABLE_DIMENSION.y;
 };
 
-export const getFacingOrientation = (newOrientation: Direction) => {
+export const getFacingOrientation = (newOrientation: Direction): Facing => {
     return ORIENTATION[newOrientation];
 };
 
-export const getRotateBy = (direction: string | null) => {
+export const getRotateBy = (direction: string | null): (number | null) => {
     if (!direction) {
         return null;
     }
@@ -60,7 +63,7 @@ export const getRotateBy = (direction: string | null) => {
     return ROTATE_DEG[direction];
 };
 
-export const getDirection = (facing: Facing) => {
+export const getDirection = (facing: Facing): (Direction | null) => {
 
     if (facing) {
         const x = facing.x;
@@ -78,25 +81,6 @@ export const getDirection = (facing: Facing) => {
     }
 
     return null;
-};
-
-export type TProcessResult = {
-    coordinate: Coordinate;
-    facing: Facing;
-    placed: boolean;
-    success: boolean;
-    processedCommand: string;
-    processedCommandOutput: string;
-    error: {
-        message: string;
-    };
-};
-
-export type TProcessCommandInputs = {
-    commandExecuted: string;
-    currCoordinate: Coordinate;
-    currFacing: Facing;
-    isPlaced: boolean;
 };
 
 export const processCommandUtil = ({

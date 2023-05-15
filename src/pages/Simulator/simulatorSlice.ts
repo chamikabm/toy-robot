@@ -8,20 +8,10 @@ import {
     RootState,
 } from '../../store';
 import {
-    Facing,
-    Coordinate,
-} from '../../types';
+    TSimulatorState,
+} from './types';
 
-export type SimulatorState = {
-    commandHistory: string[];
-    commandOutput: string;
-    hasRobotPlacedOnTheTable: boolean;
-    coordinate: Coordinate;
-    facing: Facing;
-    error: null | string;
-}
-
-export const initialState: SimulatorState = {
+export const initialState: TSimulatorState = {
     commandHistory: [],
     commandOutput: '',
     hasRobotPlacedOnTheTable : false,

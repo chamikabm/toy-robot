@@ -19,21 +19,21 @@ export const VALID_DIRECTION = Object.freeze({
 });
 export const VALID_FACING_DIRECTIONS = Object.keys(VALID_DIRECTION);
 export const CONFIG_BOARD_SIZE = 5;
-export const TABLE_DIMENSION = {
+export const TABLE_DIMENSION = Object.freeze({
   x: CONFIG_BOARD_SIZE - 1,
   y: CONFIG_BOARD_SIZE - 1,
-};
+});
 
-export const ORIENTATION: Orientation = {
+export const ORIENTATION: Orientation = Object.freeze({
   NORTH: { x: 0, y: 1 },
   EAST: { x: 1, y: 0 },
   SOUTH: { x: 0, y: -1 },
   WEST: { x: -1, y: 0 }
-};
+});
 
-export const ROTATE_DEG: RotateDeg = {
+export const ROTATE_DEG: RotateDeg = Object.freeze({
   NORTH: 0,
   EAST: 90,
   SOUTH: 180,
   WEST: 270
-};
+});
