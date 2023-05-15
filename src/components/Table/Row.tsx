@@ -39,7 +39,7 @@ const  Row: NamedExoticComponent<TRow> = memo(({ rowIndex }: TRow)  => {
         display: 'flex',
         width: 'auto',
       }}
-      data-cy={`simulator-table-grid-container-row-${rowIndex}`}
+      data-cy={`simulator-table-grid-container-square-${rowIndex}`}
     >
       {squares}
     </Grid>
